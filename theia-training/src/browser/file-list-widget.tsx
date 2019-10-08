@@ -41,6 +41,24 @@ export class FileListWidget extends ReactWidget {
 
     protected render(): React.ReactNode {
 
+        const children = this.current && this.current.children || [];
+
+        return <React.Fragment>
+                {this.path.length > 0 && <div onClick={this.openParent}>..</div>}
+                {children.map((child,key) =>
+                    <FileComponent key={key} file={child} labelProvider={this.labelProvider} onOpenFile={this.openChild}  />)
+                }
+            </React.Fragment>
+
+
+        /*
+        // because react can load only one element I pack it in a fragment
+        return <React.Fragment>
+            <div>{doubleDot}</div>
+            <div>{elementName}</div>
+        </React.Fragment>
+        */
+
         /* TODO implement rendering
         - Implement rendering of a file list in `FileListWidget.render`.
         - The model of `FileListWidget` is a current file with a path which a user follows to open this file.
@@ -52,7 +70,7 @@ export class FileListWidget extends ReactWidget {
         When a user clicks on a child node the corresponding file should be opened.
         You can do it by calling `FileListWidget.openChild`.
          */
-        return null;
+
     }
 
     protected readonly openParent = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -91,6 +109,19 @@ export class FileListWidget extends ReactWidget {
         } else {
             open(this.openerService, new URI(file.uri));
         }
+    }
+
+//complete with https://github.com/akosyakov/theia-training/blob/solution-3/theia-training/src/browser/file-list-widget.tsx
+     storeState(): object {
+        return {
+            path: this.path,
+            current: this.current
+        }
+    }
+
+    restoreState(oldState: object): void {
+        Object.assign(this, oldState);
+        this.update();
     }
 
 }
