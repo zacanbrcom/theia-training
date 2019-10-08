@@ -4,6 +4,14 @@ import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegist
 import { open, KeybindingContribution, KeybindingRegistry, FrontendApplicationContribution, QuickOpenService, Endpoint, QuickOpenItem, QuickOpenMode, StatusBar, QuickOpenContribution, QuickOpenHandlerRegistry, OpenerService } from "@theia/core/lib/browser";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 
+
+export const TheiaQuickCommand = {
+    id: 'quick-cmd',
+    label: 'my-quick-cmd'
+}
+
+
+
 @injectable()
 export class TheiaTrainingFrontendContribution implements CommandContribution, MenuContribution, KeybindingContribution, FrontendApplicationContribution, QuickOpenContribution {
 
@@ -23,7 +31,44 @@ export class TheiaTrainingFrontendContribution implements CommandContribution, M
     @inject(StatusBar)
     protected readonly statusBar: StatusBar;
 
+
+
+
+
+
+
     registerCommands(registry: CommandRegistry): void {
+
+       registry.registerCommand(TheiaQuickCommand, {
+
+           execute: () => {
+            let roots:string = this.workspaceService.tryGetRoots()[0].uri
+            if(roots != undefined){
+                this.open(roots)
+
+            }
+           },
+           isEnabled: () => {
+               let roots:string = this.workspaceService.tryGetRoots()[0].uri
+               if(roots!= undefined){
+                   return true;
+               }else{
+                   return false;
+               }
+           },
+
+           isVisible: () => {
+               let roots:string = this.workspaceService.tryGetRoots()[0].uri
+               if(roots!= undefined){
+                   return true;
+               }else{
+                  return false;
+               }
+           }
+
+       });
+
+
         // TODO: Add `Open Quick File...` command
         // The command should call `this.open` for the first workspace root, i.e. `this.workspaceService.tryGetRoots()[0]`
         // if there is no workspace root then the command should not be visible and enabled
