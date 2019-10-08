@@ -40,6 +40,7 @@ export class FileListWidget extends ReactWidget {
     protected current: FileStat | undefined;
 
     protected render(): React.ReactNode {
+
         /* TODO implement rendering
         - Implement rendering of a file list in `FileListWidget.render`.
         - The model of `FileListWidget` is a current file with a path which a user follows to open this file.
