@@ -1,7 +1,7 @@
 import { injectable, inject } from "inversify";
 import URI from "@theia/core/lib/common/uri";
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from "@theia/core/lib/common";
-import { open, KeybindingContribution, KeybindingRegistry, FrontendApplicationContribution, QuickOpenService, Endpoint, QuickOpenItem, QuickOpenMode, StatusBar, QuickOpenContribution, QuickOpenHandlerRegistry, OpenerService , CommonMenus} from "@theia/core/lib/browser";
+import { open, KeybindingContribution, KeybindingRegistry, FrontendApplicationContribution, QuickOpenService, Endpoint, QuickOpenItem, QuickOpenMode, StatusBar, QuickOpenContribution, QuickOpenHandlerRegistry, OpenerService , CommonMenus, StatusBarAlignment} from "@theia/core/lib/browser";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 
 
@@ -95,6 +95,13 @@ export class TheiaTrainingFrontendContribution implements CommandContribution, M
     }
 
     onStart(): void {
+        this.statusBar.setColor("red");
+        this.statusBar.setElement("my-quick",{
+            color: 'red',
+            text: '$(ad)',
+            tooltip: 'test',
+            alignment: StatusBarAlignment.LEFT
+        })
         // TODO: Add `Open Quick File...` status bar item with file icon aligned left
     }
 
