@@ -1,7 +1,7 @@
 import { injectable, inject } from "inversify";
 import URI from "@theia/core/lib/common/uri";
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from "@theia/core/lib/common";
-import { open, KeybindingContribution, KeybindingRegistry, FrontendApplicationContribution, QuickOpenService, Endpoint, QuickOpenItem, QuickOpenMode, StatusBar, QuickOpenContribution, QuickOpenHandlerRegistry, OpenerService } from "@theia/core/lib/browser";
+import { open, KeybindingContribution, KeybindingRegistry, FrontendApplicationContribution, QuickOpenService, Endpoint, QuickOpenItem, QuickOpenMode, StatusBar, QuickOpenContribution, QuickOpenHandlerRegistry, OpenerService , CommonMenus} from "@theia/core/lib/browser";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
 
 
@@ -71,14 +71,26 @@ export class TheiaTrainingFrontendContribution implements CommandContribution, M
 
         // TODO: Add `Open Quick File...` command
         // The command should call `this.open` for the first workspace root, i.e. `this.workspaceService.tryGetRoots()[0]`
-        // if there is no workspace root then the command should not be visible and enabled
+        // if there is no workspace root then the command should not be visible and enabled -- DONE
     }
 
     registerKeybindings(registry: KeybindingRegistry): void {
         // TODO: Add `ctrlcmd+k f` keybinding for `Open Quick File...` command
+        registry.registerKeybinding({
+            command: 'quick-cmd',
+            keybinding: 'ctrlcmd+k f'
+        })
+
+
+
     }
 
     registerMenus(registry: MenuModelRegistry): void {
+
+        registry.registerMenuAction(CommonMenus.FILE_OPEN, {
+            label: 'my-quick',
+            commandId: 'quick-cmd'
+        })
         // TODO: Add `Open Quick File...` menu item in `CommonMenus.FILE_OPEN` menu path
     }
 
