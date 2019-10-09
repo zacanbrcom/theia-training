@@ -1,6 +1,6 @@
-// import * as fs from 'fs-extra';
+import * as fs from 'fs-extra';
 import { FileListService, Files } from "../common/file-list-protocol";
-// import { FileUri } from "@theia/core/lib/node/file-uri";
+import { FileUri } from "@theia/core/lib/node/file-uri";
 import { injectable, inject } from "inversify";
 // import URI from '@theia/core/lib/common/uri';
 import { MessageService } from '@theia/core';
@@ -14,6 +14,7 @@ export class NodeFileListService implements FileListService {
     protected readonly messageService: MessageService;
 
     async getFiles(uri: string): Promise<Files> {
+
         // TODO: implement fetching files info for the given uri
         // use `fs-extra` module to check whether a path points to the directory with `stat(fsPath)`
         // use `fs-extra` module to read child directories with `readdir(fsPath)`
